@@ -1,6 +1,6 @@
 package store
 
-import web3 "github.com/umbracle/go-web3"
+import web3 "github.com/D-Cous/go-web3"
 
 // Store is a datastore for the tracker
 type Store interface {

@@ -10,7 +10,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/umbracle/go-web3"
+	"github.com/D-Cous/go-web3"
 	"golang.org/x/crypto/sha3"
 )
 

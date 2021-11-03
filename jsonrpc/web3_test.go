@@ -3,8 +3,8 @@ package jsonrpc
 import (
 	"testing"
 
+	"github.com/D-Cous/go-web3/testutil"
 	"github.com/stretchr/testify/assert"
-	"github.com/umbracle/go-web3/testutil"
 	"golang.org/x/crypto/sha3"
 )
 
