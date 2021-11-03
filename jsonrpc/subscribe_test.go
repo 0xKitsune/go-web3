@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/D-Cous/go-web3"
+	"github.com/D-Cous/go-web3/testutil"
 	"github.com/stretchr/testify/assert"
-	"github.com/umbracle/go-web3"
-	"github.com/umbracle/go-web3/testutil"
 )
 
 func TestSubscribeNewHead(t *testing.T) {

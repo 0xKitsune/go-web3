@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/umbracle/go-web3"
-	"github.com/umbracle/go-web3/abi"
-	"github.com/umbracle/go-web3/jsonrpc"
-	"github.com/umbracle/go-web3/wallet"
+	"github.com/D-Cous/go-web3"
+	"github.com/D-Cous/go-web3/abi"
+	"github.com/D-Cous/go-web3/jsonrpc"
+	"github.com/D-Cous/go-web3/wallet"
 )
 
 // Contract is an Ethereum contract
