@@ -7,8 +7,8 @@ import (
 	"reflect"
 	"strconv"
 
+	"github.com/D-Cous/go-web3"
 	"github.com/mitchellh/mapstructure"
-	"github.com/umbracle/go-web3"
 )
 
 // Decode decodes the input with a given type
