@@ -31,9 +31,9 @@ require (
 	github.com/tyler-smith/go-bip39 v1.1.0
 	github.com/umbracle/fastrlp v0.0.0-20210128110402-41364ca56ca8
 	github.com/valyala/fasthttp v1.4.0
-	github.com/valyala/fastjson v1.4.1
-	golang.org/x/crypto v0.0.0-20201221181555-eec23a3978ad
-	golang.org/x/net v0.0.0-20190813141303-74dc4d7220e7 // indirect
+	github.com/valyala/fastjson v1.6.3
+	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
+	golang.org/x/sys v0.0.0-20211105183446-c75c47738b0c // indirect
 	google.golang.org/appengine v1.6.5 // indirect
 	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 	gotest.tools v2.2.0+incompatible // indirect

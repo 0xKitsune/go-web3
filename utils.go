@@ -9,6 +9,7 @@ import (
 	"golang.org/x/crypto/sha3"
 )
 
+//Convert hex address to checksum address
 func ToChecksumAddress(address string) (string, error) {
 	//check that the address is a valid Ethereum address
 	re1 := regexp.MustCompile("^(0x)||(0X)?[0-9a-f]{40}$")
@@ -45,6 +46,7 @@ func ToChecksumAddress(address string) (string, error) {
 	return checksumAddress, nil
 }
 
+//Check if hex address is a checksum address
 func IsChecksumAddress(address string) (bool, error) {
 	checksumAddress, err := ToChecksumAddress(address)
 	fmt.Println(checksumAddress)
