@@ -11,13 +11,14 @@ import (
 
 func ToChecksumAddress(address string) (string, error) {
 	//check that the address is a valid Ethereum address
-	re1 := regexp.MustCompile("^(0x)||(OX)?[0-9a-f]{40}$")
+	re1 := regexp.MustCompile("^(0x)||(0X)?[0-9a-f]{40}$")
 	if !re1.MatchString(address) {
 		return "", fmt.Errorf("given address '%s' is not a valid Ethereum Address", address)
 	}
 	//convert the address to lowercase
 	re2 := regexp.MustCompile("/^0x/i")
 	address = re2.ReplaceAllString(address, "")
+	address = strings.ToLower(address)
 
 	//convert address to sha3 hash
 	hasher := sha3.NewLegacyKeccak256()
@@ -46,6 +47,7 @@ func ToChecksumAddress(address string) (string, error) {
 
 func IsChecksumAddress(address string) (bool, error) {
 	checksumAddress, err := ToChecksumAddress(address)
+	fmt.Println(checksumAddress)
 	if err != nil {
 		fmt.Println(err)
 		return false, err
