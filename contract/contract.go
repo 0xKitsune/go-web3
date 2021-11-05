@@ -22,11 +22,11 @@ type Contract struct {
 // DeployContract deploys a contract
 func DeployContract(provider *jsonrpc.Client, from web3.Address, abi *abi.ABI, bin []byte, args ...interface{}) *Txn {
 	return &Txn{
-		from:     from,
-		provider: provider,
-		method:   abi.Constructor,
-		args:     args,
-		bin:      bin,
+		From:     from,
+		Provider: provider,
+		Method:   abi.Constructor,
+		Args:     args,
+		Bin:      bin,
 	}
 }
 
@@ -118,43 +118,43 @@ func (c *Contract) Txn(method string, args ...interface{}) *Txn {
 		return nil
 	}
 	return &Txn{
-		from:     *c.from,
-		addr:     &c.addr,
-		provider: c.provider,
-		method:   m,
-		args:     args,
+		From:     *c.from,
+		Addr:     &c.addr,
+		Provider: c.provider,
+		Method:   m,
+		Args:     args,
 	}
 }
 
 // Txn is a transaction object
 type Txn struct {
-	from     web3.Address
-	addr     *web3.Address
-	provider *jsonrpc.Client
-	method   *abi.Method
-	args     []interface{}
-	data     []byte
-	bin      []byte
-	gasLimit uint64
-	gasPrice uint64
-	value    *big.Int
-	hash     web3.Hash
-	receipt  *web3.Receipt
+	From     web3.Address
+	Addr     *web3.Address
+	Provider *jsonrpc.Client
+	Method   *abi.Method
+	Args     []interface{}
+	Data     []byte
+	Bin      []byte
+	GasLimit uint64
+	GasPrice uint64
+	Value    *big.Int
+	Hash     web3.Hash
+	Receipt  *web3.Receipt
 }
 
 func (t *Txn) isContractDeployment() bool {
-	return t.bin != nil
+	return t.Bin != nil
 }
 
 // AddArgs is used to set the arguments of the transaction
 func (t *Txn) AddArgs(args ...interface{}) *Txn {
-	t.args = args
+	t.Args = args
 	return t
 }
 
 // SetValue sets the value for the txn
 func (t *Txn) SetValue(v *big.Int) *Txn {
-	t.value = new(big.Int).Set(v)
+	t.Value = new(big.Int).Set(v)
 	return t
 }
 
@@ -168,16 +168,16 @@ func (t *Txn) EstimateGas() (uint64, error) {
 
 func (t *Txn) estimateGas() (uint64, error) {
 	if t.isContractDeployment() {
-		return t.provider.Eth().EstimateGasContract(t.data)
+		return t.Provider.Eth().EstimateGasContract(t.Data)
 	}
 
 	msg := &web3.CallMsg{
-		From:  t.from,
-		To:    t.addr,
-		Data:  t.data,
-		Value: t.value,
+		From:  t.From,
+		To:    t.Addr,
+		Data:  t.Data,
+		Value: t.Value,
 	}
-	return t.provider.Eth().EstimateGas(msg)
+	return t.Provider.Eth().EstimateGas(msg)
 }
 
 // SignSendAndWait is a blocking query that combines
@@ -200,15 +200,15 @@ func (t *Txn) SignAndSend(key *wallet.Key, chainID uint64) error {
 	}
 
 	// estimate gas price
-	if t.gasPrice == 0 {
-		t.gasPrice, err = t.provider.Eth().GasPrice()
+	if t.GasPrice == 0 {
+		t.GasPrice, err = t.Provider.Eth().GasPrice()
 		if err != nil {
 			return err
 		}
 	}
 	// estimate gas limit
-	if t.gasLimit == 0 {
-		t.gasLimit, err = t.estimateGas()
+	if t.GasLimit == 0 {
+		t.GasLimit, err = t.estimateGas()
 		if err != nil {
 			return err
 		}
@@ -216,14 +216,14 @@ func (t *Txn) SignAndSend(key *wallet.Key, chainID uint64) error {
 
 	// send transaction
 	txn := &web3.Transaction{
-		From:     t.from,
-		Input:    t.data,
-		GasPrice: t.gasPrice,
-		Gas:      t.gasLimit,
-		Value:    t.value,
+		From:     t.From,
+		Input:    t.Data,
+		GasPrice: t.GasPrice,
+		Gas:      t.GasLimit,
+		Value:    t.Value,
 	}
-	if t.addr != nil {
-		txn.To = t.addr
+	if t.Addr != nil {
+		txn.To = t.Addr
 	}
 
 	// Create the signer object and sign the transaction
@@ -233,7 +233,7 @@ func (t *Txn) SignAndSend(key *wallet.Key, chainID uint64) error {
 		return err
 	}
 	//send the transaction and return the transacation hash
-	t.hash, err = t.provider.Eth().SendTransaction(signedTxn)
+	t.Hash, err = t.Provider.Eth().SendTransaction(signedTxn)
 	if err != nil {
 		return err
 	}
@@ -242,22 +242,22 @@ func (t *Txn) SignAndSend(key *wallet.Key, chainID uint64) error {
 
 // Validate validates the arguments of the transaction
 func (t *Txn) Validate() error {
-	if t.data != nil {
+	if t.Data != nil {
 		// Already validated
 		return nil
 	}
 	if t.isContractDeployment() {
-		t.data = append(t.data, t.bin...)
+		t.Data = append(t.Data, t.Bin...)
 	}
-	if t.method != nil {
-		data, err := abi.Encode(t.args, t.method.Inputs)
+	if t.Method != nil {
+		data, err := abi.Encode(t.Args, t.Method.Inputs)
 		if err != nil {
 			return fmt.Errorf("failed to encode arguments: %v", err)
 		}
 		if !t.isContractDeployment() {
-			t.data = append(t.method.ID(), data...)
+			t.Data = append(t.Method.ID(), data...)
 		} else {
-			t.data = append(t.data, data...)
+			t.Data = append(t.Data, data...)
 		}
 	}
 	return nil
@@ -265,31 +265,31 @@ func (t *Txn) Validate() error {
 
 // SetGasPrice sets the gas price of the transaction
 func (t *Txn) SetGasPrice(gasPrice uint64) *Txn {
-	t.gasPrice = gasPrice
+	t.GasPrice = gasPrice
 	return t
 }
 
 // SetGasLimit sets the gas limit of the transaction
 func (t *Txn) SetGasLimit(gasLimit uint64) *Txn {
-	t.gasLimit = gasLimit
+	t.GasLimit = gasLimit
 	return t
 }
 
 // Wait waits till the transaction is mined
 func (t *Txn) Wait() error {
-	if (t.hash == web3.Hash{}) {
+	if (t.Hash == web3.Hash{}) {
 		panic("transaction not executed")
 	}
 
 	var err error
 	for {
-		t.receipt, err = t.provider.Eth().GetTransactionReceipt(t.hash)
+		t.Receipt, err = t.Provider.Eth().GetTransactionReceipt(t.Hash)
 		if err != nil {
 			if err.Error() != "not found" {
 				return err
 			}
 		}
-		if t.receipt != nil {
+		if t.Receipt != nil {
 			break
 		}
 	}
@@ -297,8 +297,8 @@ func (t *Txn) Wait() error {
 }
 
 // Receipt returns the receipt of the transaction after wait
-func (t *Txn) Receipt() *web3.Receipt {
-	return t.receipt
+func (t *Txn) GetReceipt() *web3.Receipt {
+	return t.Receipt
 }
 
 // Event is a solidity event
