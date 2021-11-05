@@ -106,22 +106,17 @@ func (c *Contract) Call(method string, block web3.BlockNumber, args ...interface
 
 // Txn creates a new transaction object
 func (c *Contract) Txn(method string, args ...interface{}) *Txn {
-	fmt.Println("Checking method from abi")
 	m, ok := c.abi.Methods[method]
 	if !ok {
 		// TODO, return error
 		fmt.Println("Method not found")
 		panic(fmt.Errorf("method %s not found", method))
 	}
-	fmt.Println("Method exists", method)
 
-	fmt.Println("Printing transaction arguments")
-	fmt.Println("from", *c.from)
-	fmt.Println("addr", &c.addr)
-	fmt.Println("provider ", c.provider)
-	fmt.Println("method", m)
-	fmt.Println("args", args)
-
+	if c.from.String() == "" {
+		fmt.Println("Transaction 'From' address is not set")
+		return nil
+	}
 	return &Txn{
 		from:     *c.from,
 		addr:     &c.addr,
