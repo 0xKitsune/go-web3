@@ -214,6 +214,19 @@ func (t *Txn) SignAndSend(key *wallet.Key, chainID uint64) error {
 		}
 	}
 
+	//get the current block to retrieve the nonce
+	currentBlock, err := t.Provider.Eth().BlockNumber()
+	if err != nil {
+		fmt.Println("Error retrieving current block")
+		return err
+	}
+	//get the nonce
+	nonce, err := t.Provider.Eth().GetNonce(t.From, web3.BlockNumber(currentBlock))
+	if err != nil {
+		fmt.Printf("Error retrieving nonce for %s\n", t.From)
+		return err
+	}
+
 	// send transaction
 	txn := &web3.Transaction{
 		From:     t.From,
@@ -221,6 +234,7 @@ func (t *Txn) SignAndSend(key *wallet.Key, chainID uint64) error {
 		GasPrice: t.GasPrice,
 		Gas:      t.GasLimit,
 		Value:    t.Value,
+		Nonce:    nonce,
 	}
 	if t.Addr != nil {
 		txn.To = t.Addr

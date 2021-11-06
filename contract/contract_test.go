@@ -104,7 +104,7 @@ func TestDeployContract(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	i := NewContract(txn.Receipt().ContractAddress, abi, p)
+	i := NewContract(txn.GetReceipt().ContractAddress, abi, p)
 	resp, err := i.Call("val_0", web3.Latest)
 	assert.NoError(t, err)
 	assert.Equal(t, resp["0"], web3.Address{0x1})
