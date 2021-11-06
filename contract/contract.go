@@ -233,7 +233,8 @@ func (t *Txn) SignAndSend(key *wallet.Key, chainID uint64) error {
 		return err
 	}
 	//send the transaction and return the transacation hash
-	t.Hash, err = t.Provider.Eth().SendTransaction(signedTxn)
+	t.Hash, err = t.Provider.Eth().SendRawTransaction(signedTxn.MarshalRLP())
+
 	if err != nil {
 		return err
 	}
