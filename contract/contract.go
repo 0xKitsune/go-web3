@@ -118,7 +118,6 @@ func (c *Contract) Txn(method string, args ...interface{}) *Txn {
 		return nil
 	}
 	return &Txn{
-		From:     *c.from,
 		Addr:     &c.addr,
 		Provider: c.provider,
 		Method:   m,
