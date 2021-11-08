@@ -192,6 +192,57 @@ func (t *Txn) SignSendAndWait(key *wallet.Key, chainID uint64) error {
 	return nil
 }
 
+func (t *Txn) ConvertToWeb3Transaction() (*web3.Transaction, error) {
+
+	err := t.Validate()
+	if err != nil {
+		return nil, err
+	}
+
+	// estimate gas price
+	if t.GasPrice == 0 {
+		t.GasPrice, err = t.Provider.Eth().GasPrice()
+		if err != nil {
+			return nil, err
+		}
+	}
+	// estimate gas limit
+	if t.GasLimit == 0 {
+		t.GasLimit, err = t.estimateGas()
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	//get the current block to retrieve the nonce
+	currentBlock, err := t.Provider.Eth().BlockNumber()
+	if err != nil {
+		fmt.Println("Error retrieving current block")
+		return nil, err
+	}
+	//get the nonce
+	nonce, err := t.Provider.Eth().GetNonce(t.From, web3.BlockNumber(currentBlock))
+	if err != nil {
+		fmt.Printf("Error retrieving nonce for %s\n", t.From)
+		return nil, err
+	}
+
+	// send transaction
+	txn := &web3.Transaction{
+		From:     t.From,
+		Input:    t.Data,
+		GasPrice: t.GasPrice,
+		Gas:      t.GasLimit,
+		Value:    t.Value,
+		Nonce:    nonce,
+	}
+	if t.Addr != nil {
+		txn.To = t.Addr
+	}
+
+	return txn, nil
+}
+
 // Signs and sends the transaction to the network
 func (t *Txn) SignAndSend(key *wallet.Key, chainID uint64) error {
 	err := t.Validate()
