@@ -113,10 +113,6 @@ func (c *Contract) Txn(method string, args ...interface{}) *Txn {
 		panic(fmt.Errorf("method %s not found", method))
 	}
 
-	if c.from.String() == "" {
-		fmt.Println("Transaction 'From' address is not set")
-		return nil
-	}
 	return &Txn{
 		Addr:     &c.addr,
 		Provider: c.provider,
