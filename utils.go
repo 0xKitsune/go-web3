@@ -10,11 +10,12 @@ import (
 )
 
 //Convert hex address to checksum address
-func ToChecksumAddress(address string) (string, error) {
+func ToChecksumAddress(address string) string {
 	//check that the address is a valid Ethereum address
 	re1 := regexp.MustCompile("^0x[0-9a-fA-F]{40}$")
 	if !re1.MatchString(address) {
-		return "", fmt.Errorf("given address '%s' is not a valid Ethereum Address", address)
+		fmt.Printf("given address '%s' is not a valid Ethereum Address\n", address)
+		return ""
 	}
 	//convert the address to lowercase
 	re2 := regexp.MustCompile("^0x")
@@ -35,7 +36,7 @@ func ToChecksumAddress(address string) (string, error) {
 		indexedValue, err := strconv.ParseInt(string(rune(addressHash[i])), 16, 32)
 		if err != nil {
 			fmt.Println("Error when parsing addressHash during checksum conversion", err)
-			return "", err
+			return ""
 		}
 		if indexedValue > 7 {
 			checksumAddress += strings.ToUpper(string(address[i]))
@@ -43,17 +44,12 @@ func ToChecksumAddress(address string) (string, error) {
 			checksumAddress += string(address[i])
 		}
 	}
-	return checksumAddress, nil
+	return checksumAddress
 }
 
 //Check if hex address is a checksum address
 func IsChecksumAddress(address string) (bool, error) {
-	checksumAddress, err := ToChecksumAddress(address)
-	fmt.Println(checksumAddress)
-	if err != nil {
-		fmt.Println(err)
-		return false, err
-	}
+	checksumAddress := ToChecksumAddress(address)
 	if checksumAddress == address {
 		return true, nil
 	} else {
