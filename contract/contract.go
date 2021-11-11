@@ -191,6 +191,7 @@ func (t *Txn) ConvertToWeb3Transaction() (*web3.Transaction, error) {
 
 	err := t.Validate()
 	if err != nil {
+		fmt.Println("Error when validating the transaction")
 		return nil, err
 	}
 
@@ -198,6 +199,7 @@ func (t *Txn) ConvertToWeb3Transaction() (*web3.Transaction, error) {
 	if t.GasPrice == 0 {
 		t.GasPrice, err = t.Provider.Eth().GasPrice()
 		if err != nil {
+			fmt.Println("Error when getting the current gas price")
 			return nil, err
 		}
 	}
@@ -205,18 +207,13 @@ func (t *Txn) ConvertToWeb3Transaction() (*web3.Transaction, error) {
 	if t.GasLimit == 0 {
 		t.GasLimit, err = t.estimateGas()
 		if err != nil {
+			fmt.Println("Error when estimating gas")
 			return nil, err
 		}
 	}
 
-	//get the current block to retrieve the nonce
-	currentBlock, err := t.Provider.Eth().BlockNumber()
-	if err != nil {
-		fmt.Println("Error retrieving current block")
-		return nil, err
-	}
 	//get the nonce
-	nonce, err := t.Provider.Eth().GetNonce(t.From, web3.BlockNumber(currentBlock))
+	nonce, err := t.Provider.Eth().GetNonce(t.From, web3.Latest)
 	if err != nil {
 		fmt.Printf("Error retrieving nonce for %s\n", t.From)
 		return nil, err
@@ -242,6 +239,7 @@ func (t *Txn) ConvertToWeb3Transaction() (*web3.Transaction, error) {
 func (t *Txn) SignAndSend(key *wallet.Key, chainID uint64) error {
 	err := t.Validate()
 	if err != nil {
+		fmt.Println("Error when validating the transaction")
 		return err
 	}
 
@@ -249,6 +247,7 @@ func (t *Txn) SignAndSend(key *wallet.Key, chainID uint64) error {
 	if t.GasPrice == 0 {
 		t.GasPrice, err = t.Provider.Eth().GasPrice()
 		if err != nil {
+			fmt.Println("Error when getting the current gas price")
 			return err
 		}
 	}
@@ -256,18 +255,13 @@ func (t *Txn) SignAndSend(key *wallet.Key, chainID uint64) error {
 	if t.GasLimit == 0 {
 		t.GasLimit, err = t.estimateGas()
 		if err != nil {
+			fmt.Println("Error when estimating gas")
 			return err
 		}
 	}
 
-	//get the current block to retrieve the nonce
-	currentBlock, err := t.Provider.Eth().BlockNumber()
-	if err != nil {
-		fmt.Println("Error retrieving current block")
-		return err
-	}
 	//get the nonce
-	nonce, err := t.Provider.Eth().GetNonce(t.From, web3.BlockNumber(currentBlock))
+	nonce, err := t.Provider.Eth().GetNonce(t.From, web3.Latest)
 	if err != nil {
 		fmt.Printf("Error retrieving nonce for %s\n", t.From)
 		return err
