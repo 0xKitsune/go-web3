@@ -61,61 +61,46 @@ func (c *Contract) EstimateGas(method string, args ...interface{}) (uint64, erro
 
 // Call calls a method in the contract
 func (c *Contract) Call(method string, block web3.BlockNumber, args ...interface{}) (map[string]interface{}, error) {
-	fmt.Println("Debugging 1")
 	m, ok := c.abi.Methods[method]
 	if !ok {
 		return nil, fmt.Errorf("method %s not found", method)
 	}
-	fmt.Println("Debugging 2")
 
 	// Encode input
 	data, err := abi.Encode(args, m.Inputs)
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("Debugging 3")
-
 	data = append(m.ID(), data...)
-	fmt.Println("Debugging 4")
 
 	// Call function
 	msg := &web3.CallMsg{
 		To:   &c.addr,
 		Data: data,
 	}
-	fmt.Println("Debugging 5")
-
 	if c.from != nil {
 		msg.From = *c.from
 	}
-	fmt.Println("Debugging 6")
+
 	rawStr, err := c.provider.Eth().Call(msg, block)
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("Debugging 7")
 
 	// Decode output
 	raw, err := hex.DecodeString(rawStr[2:])
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("Debugging 8")
-
 	if len(raw) == 0 {
 		return nil, fmt.Errorf("empty response")
 	}
-	fmt.Println("Debugging 9")
-
 	respInterface, err := abi.Decode(m.Outputs, raw)
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("Debugging 10")
 
 	resp := respInterface.(map[string]interface{})
-	fmt.Println("Debugging 11")
-
 	return resp, nil
 }
 
