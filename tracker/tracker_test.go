@@ -10,13 +10,13 @@ import (
 	"testing"
 	"time"
 
-	web3 "github.com/D-Cous/go-web3"
-	"github.com/D-Cous/go-web3/abi"
-	"github.com/D-Cous/go-web3/blocktracker"
-	"github.com/D-Cous/go-web3/jsonrpc"
-	"github.com/D-Cous/go-web3/jsonrpc/codec"
-	"github.com/D-Cous/go-web3/testutil"
-	"github.com/D-Cous/go-web3/tracker/store/inmem"
+	web3 "github.com/0xKitsune/go-web3"
+	"github.com/0xKitsune/go-web3/abi"
+	"github.com/0xKitsune/go-web3/blocktracker"
+	"github.com/0xKitsune/go-web3/jsonrpc"
+	"github.com/0xKitsune/go-web3/jsonrpc/codec"
+	"github.com/0xKitsune/go-web3/testutil"
+	"github.com/0xKitsune/go-web3/tracker/store/inmem"
 	"github.com/stretchr/testify/assert"
 )
 

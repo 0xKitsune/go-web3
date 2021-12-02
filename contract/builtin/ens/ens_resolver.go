@@ -1,8 +1,8 @@
 package ens
 
 import (
-	web3 "github.com/D-Cous/go-web3"
-	"github.com/D-Cous/go-web3/jsonrpc"
+	web3 "github.com/0xKitsune/go-web3"
+	"github.com/0xKitsune/go-web3/jsonrpc"
 )
 
 type ENSResolver struct {

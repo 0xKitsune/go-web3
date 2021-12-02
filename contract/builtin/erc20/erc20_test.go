@@ -3,9 +3,9 @@ package erc20
 import (
 	"testing"
 
-	web3 "github.com/D-Cous/go-web3"
-	"github.com/D-Cous/go-web3/jsonrpc"
-	"github.com/D-Cous/go-web3/testutil"
+	web3 "github.com/0xKitsune/go-web3"
+	"github.com/0xKitsune/go-web3/jsonrpc"
+	"github.com/0xKitsune/go-web3/testutil"
 	"github.com/stretchr/testify/assert"
 )
 

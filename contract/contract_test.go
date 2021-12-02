@@ -5,11 +5,11 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/D-Cous/go-web3"
-	"github.com/D-Cous/go-web3/abi"
-	"github.com/D-Cous/go-web3/jsonrpc"
-	"github.com/D-Cous/go-web3/testutil"
-	"github.com/D-Cous/go-web3/wallet"
+	"github.com/0xKitsune/go-web3"
+	"github.com/0xKitsune/go-web3/abi"
+	"github.com/0xKitsune/go-web3/jsonrpc"
+	"github.com/0xKitsune/go-web3/testutil"
+	"github.com/0xKitsune/go-web3/wallet"
 	"github.com/stretchr/testify/assert"
 )
 

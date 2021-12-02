@@ -9,8 +9,8 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/D-Cous/go-web3/abi"
-	"github.com/D-Cous/go-web3/compiler"
+	"github.com/0xKitsune/go-web3/abi"
+	"github.com/0xKitsune/go-web3/compiler"
 )
 
 type config struct {
@@ -180,9 +180,9 @@ import (
 	"fmt"
 	"math/big"
 
-	web3 "github.com/D-Cous/go-web3"
-	"github.com/D-Cous/go-web3/contract"
-	"github.com/D-Cous/go-web3/jsonrpc"
+	web3 "github.com/0xKitsune/go-web3"
+	"github.com/0xKitsune/go-web3/contract"
+	"github.com/0xKitsune/go-web3/jsonrpc"
 )
 
 var (
@@ -251,7 +251,7 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"github.com/D-Cous/go-web3/abi"
+	"github.com/0xKitsune/go-web3/abi"
 )
 
 var abi{{.Name}} *abi.ABI

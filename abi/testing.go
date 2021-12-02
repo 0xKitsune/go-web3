@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/D-Cous/go-web3"
+	"github.com/0xKitsune/go-web3"
 )
 
 func randomInt(min, max int) int {

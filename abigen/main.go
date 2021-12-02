@@ -12,7 +12,7 @@ import (
 
 	"path/filepath"
 
-	"github.com/D-Cous/go-web3/compiler"
+	"github.com/0xKitsune/go-web3/compiler"
 )
 
 const (

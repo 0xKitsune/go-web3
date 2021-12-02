@@ -4,7 +4,7 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/D-Cous/go-web3"
+	"github.com/0xKitsune/go-web3"
 	"github.com/stretchr/testify/assert"
 )
 

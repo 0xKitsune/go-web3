@@ -1,7 +1,7 @@
 package jsonrpc
 
 import (
-	"github.com/D-Cous/go-web3/jsonrpc/transport"
+	"github.com/0xKitsune/go-web3/jsonrpc/transport"
 )
 
 // Client is the jsonrpc client

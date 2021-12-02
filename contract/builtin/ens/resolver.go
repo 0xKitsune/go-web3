@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"math/big"
 
-	web3 "github.com/D-Cous/go-web3"
-	"github.com/D-Cous/go-web3/contract"
-	"github.com/D-Cous/go-web3/jsonrpc"
+	web3 "github.com/0xKitsune/go-web3"
+	"github.com/0xKitsune/go-web3/contract"
+	"github.com/0xKitsune/go-web3/jsonrpc"
 )
 
 var (

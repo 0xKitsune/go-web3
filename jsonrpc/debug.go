@@ -1,6 +1,6 @@
 package jsonrpc
 
-import "github.com/D-Cous/go-web3"
+import "github.com/0xKitsune/go-web3"
 
 type Debug struct {
 	c *Client

@@ -4,7 +4,7 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"github.com/D-Cous/go-web3/abi"
+	"github.com/0xKitsune/go-web3/abi"
 )
 
 var abiENS *abi.ABI

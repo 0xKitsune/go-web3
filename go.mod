@@ -1,4 +1,4 @@
-module github.com/D-Cous/go-web3
+module github.com/0xKitsune/go-web3
 
 go 1.12
 

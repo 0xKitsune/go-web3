@@ -9,8 +9,8 @@ package main
 import (
 	"fmt"
 	
-	web3 "github.com/D-Cous/go-web3"
-	"github.com/D-Cous/go-web3/jsonrpc"
+	web3 "github.com/0xKitsune/go-web3"
+	"github.com/0xKitsune/go-web3/jsonrpc"
 )
 
 func main() {
@@ -40,7 +40,7 @@ The ABI codifier uses randomized tests with e2e integration tests with a real Ge
 To use the library import:
 
 ```
-"github.com/D-Cous/go-web3/abi"
+"github.com/0xKitsune/go-web3/abi"
 ```
 
 Declare basic objects:
@@ -80,8 +80,8 @@ You can also codify structs as Solidity tuples:
 import (
 	"fmt"
     
-	web3 "github.com/D-Cous/go-web3"
-	"github.com/D-Cous/go-web3/abi"
+	web3 "github.com/0xKitsune/go-web3"
+	"github.com/0xKitsune/go-web3/abi"
 	"math/big"
 )
 
@@ -155,9 +155,9 @@ Resolve names on the Ethereum Name Service registrar.
 import (
     "fmt"
 
-    web3 "github.com/D-Cous/go-web3"
-    "github.com/D-Cous/go-web3/jsonrpc"
-    "github.com/D-Cous/go-web3/contract/builtin/ens"
+    web3 "github.com/0xKitsune/go-web3"
+    "github.com/0xKitsune/go-web3/jsonrpc"
+    "github.com/0xKitsune/go-web3/contract/builtin/ens"
 )
 
 var mainnetAddress = web3.HexToAddress("0x314159265dD8dbb310642f98f50C066173C1259b")
@@ -184,9 +184,9 @@ func main() {
 import (
     "fmt"
 
-    web3 "github.com/D-Cous/go-web3"
-    "github.com/D-Cous/go-web3/jsonrpc"
-    "github.com/D-Cous/go-web3/contract/builtin/ens"
+    web3 "github.com/0xKitsune/go-web3"
+    "github.com/0xKitsune/go-web3/jsonrpc"
+    "github.com/0xKitsune/go-web3/contract/builtin/ens"
 )
 
 func main() {
