@@ -165,6 +165,7 @@ type Receipt struct {
 	CumulativeGasUsed uint64
 	LogsBloom         []byte
 	Logs              []*Log
+	Status            bool
 }
 
 type Log struct {
